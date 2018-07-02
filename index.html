@@ -70,6 +70,150 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Git" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/02/Git/" class="article-date">
+  <time datetime="2018-07-02T11:24:06.000Z" itemprop="datePublished">2018-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/02/Git/">Git</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-创建新分支-本地和远程"><a href="#1-创建新分支-本地和远程" class="headerlink" title="1 创建新分支(本地和远程)"></a>1 创建新分支(本地和远程)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//1 创建dev_pg分支</span><br><span class="line">git branch dev_pg  </span><br><span class="line"></span><br><span class="line">//2 切换到新分支(dev_pg)</span><br><span class="line">git checkout dev_pg</span><br><span class="line"></span><br><span class="line">//3 创建并推送代码到远程分支(dev_pg)</span><br><span class="line">git push origin dev_pg</span><br></pre></td></tr></table></figure>
+<h3 id="2-删除分支"><a href="#2-删除分支" class="headerlink" title="2 删除分支"></a>2 删除分支</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//1 删除本地分支(dev_pg)</span><br><span class="line">git branch -D dev_pg</span><br><span class="line"></span><br><span class="line">//2 删除远程分支(dev_pg)</span><br><span class="line">git branch -r -D origin/dev_pg</span><br></pre></td></tr></table></figure>
+<h3 id="3-查询分支"><a href="#3-查询分支" class="headerlink" title="3 查询分支"></a>3 查询分支</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 1 列出所有分支(本地及远程) -a（all的意思）</span><br><span class="line">git branch -a</span><br><span class="line"></span><br><span class="line">// 2 列出远程分支 -r(remote)</span><br><span class="line">git branch -r </span><br><span class="line"></span><br><span class="line">// 3 列出本地分支 -l(local)</span><br><span class="line">git branch -l</span><br></pre></td></tr></table></figure>
+<h3 id="4-查询本地git状态"><a href="#4-查询本地git状态" class="headerlink" title="4 查询本地git状态"></a>4 查询本地git状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+<h3 id="5-合并代码"><a href="#5-合并代码" class="headerlink" title="5 合并代码"></a>5 合并代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//1 切换到合并分支 (例如dev分支开发，需要合并到master分支。则先切换到master分支)</span><br><span class="line">git checkout master</span><br><span class="line"></span><br><span class="line">//2 合并代码</span><br><span class="line">git merge dev</span><br><span class="line"></span><br><span class="line">//3 查看是否有冲突</span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line">//4 再次拉一次代码</span><br><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line">//5 推送到远程</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h3 id="6-打标签-tag"><a href="#6-打标签-tag" class="headerlink" title="6 打标签(tag)"></a>6 打标签(tag)</h3><ul>
+<li>我们常常在代码封板时,使用git 创建一个tag ,这样一个不可修改的历史代码版本就像被我们封存起来一样,不论是运维发布拉取,或者以后的代码版本管理,都是十分方便的.<ul>
+<li>(1): 轻量级的</li>
+<li>它其实是一个独立的分支,或者说是一个不可变的分支.指向特定提交对象的引用.</li>
+<li>(2):带附注的</li>
+<li>实际上是存储在仓库中的一个独立对象，它有自身的校验和信息，包含着标签的名字，标签说明，标签本身也允许使用 GNU Privacy Guard (GPG) 来签署或验证,电子邮件地址和日期，一般我们都建议使用含附注型的标签，以便保留相关信息.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//1 创建tag</span><br><span class="line">git tag -a V1.2 -m &apos;WebSite version 1.2&apos;</span><br><span class="line"></span><br><span class="line">//2 查看tag</span><br><span class="line">git tag</span><br><span class="line"></span><br><span class="line">//3 查看tag描述内容</span><br><span class="line">git tag show V1.2</span><br><span class="line"></span><br><span class="line">//4 推送的远程</span><br><span class="line">git push origin --tags</span><br><span class="line"></span><br><span class="line">//5 删除本地标签</span><br><span class="line">git tag -d V1.2</span><br><span class="line"></span><br><span class="line">//6 删除远程标签</span><br><span class="line">git push origin :refs/tags/V1.2</span><br><span class="line"></span><br><span class="line">//7 获取远程标签版本下的分支</span><br><span class="line">git fetch origin tagV1.2</span><br></pre></td></tr></table></figure>
+<h3 id="7-查看分支链接地址"><a href="#7-查看分支链接地址" class="headerlink" title="7 查看分支链接地址"></a>7 查看分支链接地址</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//1 查看远程分支地址（fetch  push）</span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line">//2</span><br><span class="line">git remote show origin</span><br></pre></td></tr></table></figure>
+<h3 id="8-更改文件夹名字"><a href="#8-更改文件夹名字" class="headerlink" title="8 更改文件夹名字"></a>8 更改文件夹名字</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 将abc文件夹改名为aaa</span><br><span class="line">mv  abc aaa</span><br></pre></td></tr></table></figure>
+<h3 id="9-忽略文件"><a href="#9-忽略文件" class="headerlink" title="9 忽略文件"></a>9 忽略文件</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建忽略文件</span></span><br><span class="line">$ touch .gitignore</span><br><span class="line"></span><br><span class="line"><span class="comment">// 忽略文件内容(找到对应的文件复制内容)</span></span><br><span class="line"><span class="built_in">NSString</span> *gitignore = <span class="string">@"https://github.com/github/gitignore"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** 忽略用户操作信息(文件夹位置调整等) */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除用户操作文件 (工程有修改时，使用git status能查到下面的文件 *请见附录1*)</span></span><br><span class="line">$ git rm --cached XXX.xcodeproj/project.xcworkspace/xcuserdata/mac.xcuserdatad/UserInterfaceState.xcuserstate</span><br><span class="line"><span class="comment">// 提交本地库</span></span><br><span class="line">$ git commit -m <span class="string">"Removed the stupid strange file that shouldn't be tracked"</span></span><br><span class="line"><span class="comment">// 推送到远程服务</span></span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/02/Git/" data-id="cjj48u0wg0001h2s60znqc8cl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Cocapods" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/02/Cocapods/" class="article-date">
+  <time datetime="2018-07-02T09:57:48.000Z" itemprop="datePublished">2018-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/02/Cocapods/">Cocapods</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-删除源"><a href="#1-删除源" class="headerlink" title="1 删除源"></a>1 删除源</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// (sudo是root级别的指令)</span></span><br><span class="line">$ sudo gem sources -r https:<span class="comment">//rubygems.org/</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-添加源"><a href="#2-添加源" class="headerlink" title="2 添加源"></a>2 添加源</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem sources -a https:<span class="comment">//gems.ruby-china.org/</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-查看源"><a href="#3-查看源" class="headerlink" title="3 查看源"></a>3 查看源</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources -l</span><br></pre></td></tr></table></figure>
+<h3 id="4-初始化环境"><a href="#4-初始化环境" class="headerlink" title="4 初始化环境"></a>4 初始化环境</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem install cocoapods</span><br></pre></td></tr></table></figure>
+<h3 id="5-查看版本"><a href="#5-查看版本" class="headerlink" title="5 查看版本"></a>5 查看版本</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pod --version</span><br></pre></td></tr></table></figure>
+<h3 id="6-安装-下载"><a href="#6-安装-下载" class="headerlink" title="6 安装(下载)"></a>6 安装(下载)</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pod setup</span><br></pre></td></tr></table></figure>
+<h2 id="框架支持Cocoapods"><a href="#框架支持Cocoapods" class="headerlink" title="框架支持Cocoapods"></a>框架支持Cocoapods</h2><h3 id="Spec文件"><a href="#Spec文件" class="headerlink" title="Spec文件"></a>Spec文件</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1 Spec文件配置相关</span></span><br><span class="line"></span><br><span class="line">Pod::Spec.new <span class="keyword">do</span> |s| <span class="meta">#</span></span><br><span class="line">s.name         =  <span class="string">"PGTimer"</span>     <span class="comment">// 框架名称</span></span><br><span class="line">s.version      = <span class="string">"0.0.1"</span>        <span class="comment">// 框架版本号</span></span><br><span class="line">s.summary      = <span class="string">"all kinds of categories for iOS develop"</span> <span class="comment">//摘要:简单描述</span></span><br><span class="line">s.description  = &lt;&lt;-DESC </span><br><span class="line"><span class="keyword">this</span> project provide all kinds of categories <span class="keyword">for</span> iOS developer</span><br><span class="line">DESC <span class="comment">//详细描述</span></span><br><span class="line">s.homepage     = <span class="string">"https://github.com/PggMan/PGTimerDemo"</span> <span class="comment">//项目主路径</span></span><br><span class="line">s.license      = <span class="string">"MIT"</span> <span class="comment">// 开源许可  级别与作用见下图</span></span><br><span class="line">s.author       = &#123;&#123; <span class="string">"PggMan"</span> =&gt; <span class="string">"pg890101@gmail.com"</span> &#125; <span class="comment">//作者邮箱名、邮箱地址</span></span><br><span class="line">s.platform     = :ios <span class="comment">// 框架相关平台</span></span><br><span class="line">s.source       = &#123; :git =&gt; <span class="string">"https://github.com/PggMan/PGTimerDemo.git"</span>, :tag =&gt; s.version &#125;  <span class="comment">// 下载路径、版本号 注意路径结尾必须添加.git。不然Cocopods不会会报警告"- WARN  | github_sources: Github repositories should end in `.git`." 不会通过的</span></span><br><span class="line">s.source_files  = <span class="string">"PGTimerDemo/PGTimer/*.&#123;h,m&#125;"</span></span><br><span class="line"><span class="comment">//被管理文件在项目中的路径</span></span><br><span class="line">s.exclude_files = <span class="string">"Classes/Exclude"</span> <span class="comment">//需要忽略管理文件夹内的文件</span></span><br><span class="line"></span><br><span class="line">s.public_header_files = <span class="string">"iOS_Category/Classes/UIKit/</span></span><br><span class="line"><span class="string">UI_Categories.h"</span>，<span class="string">"iOS_Category/Classes/Foundation/Foundation_Category.h"</span>，<span class="string">"iOS_Category/Classes/**/*.h"</span> <span class="comment">// 公开头文件路径</span></span><br><span class="line"></span><br><span class="line">s.requires_arc = <span class="literal">true</span> <span class="comment">// 是否是ARC模式</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h3 id="Spec权限等级"><a href="#Spec权限等级" class="headerlink" title="Spec权限等级"></a>Spec权限等级</h3><p> 1 请见附录一</p>
+<p> 2 权限文件内容 (直接复制到新建.txt文件中，重命名文件为: LICENSE)<br> <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">Copyright (c) <span class="number">2011</span><span class="number">-2018</span> PGTimerDemo Software Foundation (https:<span class="comment">//github.com/PggMan/PGTimerDemo)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Permission is hereby granted, free of charge, to any person obtaining a <span class="keyword">copy</span></span><br><span class="line"></span><br><span class="line">of <span class="keyword">this</span> software and associated documentation files (the <span class="string">"Software"</span>), to deal</span><br><span class="line"></span><br><span class="line"><span class="keyword">in</span> the Software without restriction, including without limitation the rights</span><br><span class="line"></span><br><span class="line">to use, <span class="keyword">copy</span>, modify, merge, publish, distribute, sublicense, and/or sell</span><br><span class="line"></span><br><span class="line">copies of the Software, and to permit persons to whom the Software is</span><br><span class="line"></span><br><span class="line">furnished to <span class="keyword">do</span> so, subject to the following conditions:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The above copyright notice and <span class="keyword">this</span> permission notice shall be included <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">all copies or substantial portions of the Software.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">THE SOFTWARE IS PROVIDED <span class="string">"AS IS"</span>, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span><br><span class="line"></span><br><span class="line">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span><br><span class="line"></span><br><span class="line">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN <span class="literal">NO</span> EVENT SHALL THE</span><br><span class="line"></span><br><span class="line">AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY <span class="built_in">CLAIM</span>, DAMAGES OR OTHER</span><br><span class="line"></span><br><span class="line">LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span><br><span class="line"></span><br><span class="line">OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span><br><span class="line"></span><br><span class="line">THE SOFTWARE.</span><br></pre></td></tr></table></figure></p>
+<h3 id="Spec操作"><a href="#Spec操作" class="headerlink" title="Spec操作"></a>Spec操作</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**终端指令*/</span></span><br><span class="line"><span class="number">1.</span></span><br><span class="line">$ pod spec create PGTimer </span><br><span class="line"><span class="comment">// 本地会生成PGTimer.podspec文件建议用Xcode 打开</span></span><br><span class="line"><span class="number">2.</span></span><br><span class="line">$ pod lib lint </span><br><span class="line"><span class="comment">// 编辑完podspec文件后需要验证一下这个文件是否可用</span></span><br><span class="line"><span class="comment">//#文件不允许有任何的Warning或者Error#</span></span><br><span class="line"><span class="number">3.</span></span><br><span class="line">$ git tag -m<span class="string">" first release of my testDemo"</span> <span class="string">"0.0.1"</span></span><br><span class="line">$ git push --tags</span><br><span class="line"><span class="comment">// 打tag podspec文件中需要指定的tag 每次上传新tag 版本 都需要更改spec文件中的tag配置描述</span></span><br></pre></td></tr></table></figure>
+<h3 id="pod账号注册"><a href="#pod账号注册" class="headerlink" title="pod账号注册"></a>pod账号注册</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**注册*/</span></span><br><span class="line">$ pod trunk register pg890101@gmail.com 'PggMan'  --verbose</span><br><span class="line"></span><br><span class="line"><span class="comment">//1  pg890101@gmail.com 注册的邮箱，会发送信息至此邮箱</span></span><br><span class="line"><span class="comment">//2  PggMan 用户名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**查看*/</span></span><br><span class="line">$ pod trunk me </span><br><span class="line"><span class="comment">// 可以查看你已经注册的信息，其中包含你的name、email、since、Pods、sessions，其中Pods为你往CocoaPods提交的所有的Pod！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**把项目对应的podspec文件推送到Cocoapods服务上去*/</span></span><br><span class="line">$ pod trunk push PGTimer.podspec</span><br><span class="line"></span><br><span class="line"><span class="comment">/**更改已Cocoapods已经经拥有的项目*/</span></span><br><span class="line">$ pod trunk add-owner PGTimer pg890101@gmail.com</span><br><span class="line"><span class="comment">//  CocoapodsDemo 框架名</span></span><br><span class="line"><span class="comment">//  添加管理者的邮箱</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**更新本地库*/</span></span><br><span class="line">$ pod repo update</span><br><span class="line"><span class="comment">// 补充</span></span><br></pre></td></tr></table></figure>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h4 id="1-上传后，pod-search-PGTimer-搜索不到"><a href="#1-上传后，pod-search-PGTimer-搜索不到" class="headerlink" title="1 上传后，pod search PGTimer 搜索不到"></a>1 上传后，pod search PGTimer 搜索不到</h4><ul>
+<li>1 - 打开 Finder ,然后前往文件夹(快捷键: shift + command + G) ,输入以下地址:<br>~/Library/Caches/CocoaPods/ </li>
+<li><p>2 - 删除 search_index.json 这个文件,这个文件是 pod search 搜索时的缓存文件。</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h4 id="附录一"><a href="#附录一" class="headerlink" title="附录一"></a>附录一</h4></li>
+</ul>
+<p><img src="/images/License.png" alt="权限图"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/02/Cocapods/" data-id="cjj48u0w90000h2s6ekoh6rgq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-内存管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/02/内存管理/" class="article-date">
+  <time datetime="2018-07-02T09:43:50.000Z" itemprop="datePublished">2018-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/02/内存管理/">内存管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  NewPerson.h</span></span><br><span class="line"><span class="comment">//  内存管理</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by 印度阿三 on 2018/7/2.</span></span><br><span class="line"><span class="comment">//  Copyright © 2018年 印度阿三. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Dog.h"</span></span></span><br><span class="line"><span class="comment">// 自定义的类 若想实现copy功能需要遵守 NSCopying协议，并实现 copyWithZone:(struct _NSZone *)zone</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NewPerson</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>&gt;</span></span><br><span class="line"><span class="comment">//1 assign setting方法直接赋值</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> ,<span class="keyword">assign</span>) <span class="built_in">NSInteger</span> age;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 2 retain setting方法中会判断是不是新值；若是，会release旧值，retain新值</span></span><br><span class="line"><span class="comment">   在dealloc中会 release释放对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> ,<span class="keyword">retain</span>) Dog *dog;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 3 copy   setting方法中会判断是不是新值；若是，会release旧值，copy新值</span></span><br><span class="line"><span class="comment">   在dealloc中会 release释放对象</span></span><br><span class="line"><span class="comment">   属性不存在 mutableCopy 操作</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> ,<span class="keyword">copy</span>) <span class="built_in">NSArray</span> *ary;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span> ,<span class="keyword">weak</span>) Dog *weakDog;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/02/内存管理/" data-id="cjj48u0wi0002h2s6jxxl40d3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/07/02/hello-world/" class="article-date">
@@ -144,6 +288,18 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/07/02/Git/">Git</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/02/Cocapods/">Cocapods</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/02/内存管理/">内存管理</a>
+          </li>
         
           <li>
             <a href="/2018/07/02/hello-world/">Hello World</a>
