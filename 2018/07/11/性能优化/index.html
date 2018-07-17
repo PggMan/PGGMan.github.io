@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      性能优化 | 印度阿三 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="葛朋">
+    
+    
+
+    <meta name="description" content="耗电来源 CPU处理 Processing ;数据处理计算  网络: Networking   :网络请求 定位: Location     :用户位置定位 图像: Graphics     :图像渲染  耗电优化 尽量降低CPU、GPU功耗 少用定时器 优化I/O操作 尽量不要频繁写入小数据。最好批量一次性写入。 读写大量重要数据时，考虑用dispatch_io，其提供了基于GCD的异步操作文件">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能优化 | 印度阿三">
+<meta property="og:url" content="http://PGGMan.github.io/2018/07/11/性能优化/index.html">
+<meta property="og:site_name" content="印度阿三">
+<meta property="og:description" content="耗电来源 CPU处理 Processing ;数据处理计算  网络: Networking   :网络请求 定位: Location     :用户位置定位 图像: Graphics     :图像渲染  耗电优化 尽量降低CPU、GPU功耗 少用定时器 优化I/O操作 尽量不要频繁写入小数据。最好批量一次性写入。 读写大量重要数据时，考虑用dispatch_io，其提供了基于GCD的异步操作文件">
+<meta property="og:locale" content="Chinese/English">
+<meta property="og:updated_time" content="2018-07-11T12:49:53.535Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="性能优化 | 印度阿三">
+<meta name="twitter:description" content="耗电来源 CPU处理 Processing ;数据处理计算  网络: Networking   :网络请求 定位: Location     :用户位置定位 图像: Graphics     :图像渲染  耗电优化 尽量降低CPU、GPU功耗 少用定时器 优化I/O操作 尽量不要频繁写入小数据。最好批量一次性写入。 读写大量重要数据时，考虑用dispatch_io，其提供了基于GCD的异步操作文件">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">印度阿三</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          I&#39;m my own hero
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">性能优化</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-07-11" class="post-meta__date date">2018-07-11</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h4 id="耗电来源"><a href="#耗电来源" class="headerlink" title="耗电来源"></a>耗电来源</h4><ul>
+<li>CPU处理 Processing ;数据处理计算 </li>
+<li>网络: Networking   :网络请求</li>
+<li>定位: Location     :用户位置定位</li>
+<li>图像: Graphics     :图像渲染</li>
+</ul>
+<h4 id="耗电优化"><a href="#耗电优化" class="headerlink" title="耗电优化"></a>耗电优化</h4><ul>
+<li>尽量降低CPU、GPU功耗</li>
+<li>少用定时器</li>
+<li>优化I/O操作<ul>
+<li>尽量不要频繁写入小数据。最好批量一次性写入。</li>
+<li>读写大量重要数据时，考虑用dispatch_io，其提供了基于GCD的异步操作文件I/O的API，用dispatch_io系统会优化磁盘访问</li>
+<li>数据量比较大的，建议使用数据库(比如SQLite CoreData)(数据库怎么优化的？)</li>
+</ul>
+</li>
+<li>网络优化<ul>
+<li>减少、压缩网络数据(protocol buffer 体积比JSON还小)</li>
+<li>上传文件也进行压缩(图片、I/O)</li>
+<li>网络请求结果基本一样的可以用缓存(NSMutableURLRequest 然后用NSCache进行缓存)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableURLRequest</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSCache</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>尽量使用断点续传</li>
+<li>网络不可用时，不要尝试执行网络请求</li>
+<li>让用户可以取消长时间运行或者速度很慢的网络操作，设置合适的超时时间</li>
+<li>批量下载，减少发送网络请求的数量</li>
+</ul>
+<ul>
+<li><p>定位优化</p>
+</li>
+<li><p>硬件检测优化</p>
+<ul>
+<li>加速剂、陀螺仪、摇晃。会产生动作(motion)事件在不需要检测的场合，应该及时关闭这些硬件</li>
+</ul>
+</li>
+</ul>
+<h4 id="APP的启动"><a href="#APP的启动" class="headerlink" title="APP的启动"></a>APP的启动</h4><ul>
+<li><p>APP的启动可以分为2种</p>
+<ul>
+<li>冷启动(Cold Launch): 从零开始启动APP</li>
+<li>热启动(Warm Launch): APP已经在内存中，在后台存活着，再次点击图标启动APP</li>
+</ul>
+</li>
+<li><p>APP启动时间的优化，主要是针对冷启动进行优化</p>
+</li>
+<li>通过添加环境变量可以打印出APP的启动时间分析(Edit scheme -&gt; Run -&gt; Arguments(400毫秒以内算正常的)<ul>
+<li><code>DYLD_PRINT_STATISTICS</code>设置为1(dyld_print_statistics)</li>
+<li><code>DYLD_PRINT_STATISTICS_DETAILS</code>设置为1，会展示更加详细的信息</li>
+</ul>
+</li>
+</ul>
+<h4 id="APP的启动过程"><a href="#APP的启动过程" class="headerlink" title="APP的启动过程"></a>APP的启动过程</h4><ul>
+<li>APP的冷启动可以概括为3大阶段(注: 需要图)<ul>
+<li>dyld</li>
+<li>runtime</li>
+<li>main </li>
+</ul>
+</li>
+</ul>
+<h4 id="APP的启动-dyld"><a href="#APP的启动-dyld" class="headerlink" title="APP的启动 - dyld"></a>APP的启动 - dyld</h4><ul>
+<li>dyld (dynamic link editor), Apple的动态链接器，可以用来装载Mach-O文件(可执行文件、动态库等)  </li>
+</ul>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
