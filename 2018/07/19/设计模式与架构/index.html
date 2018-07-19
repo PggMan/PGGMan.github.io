@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      设计模式与架构 | 印度阿三 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="葛朋">
+    
+    
+
+    <meta name="description" content="架构架构（Architecture） 软件开发中的设计方案 类似于建造楼房的图纸   类与类之间的关系，模块与模块之间的关系，客户端与服务端的关系  常用架构 MVC、MVP、MVVM、VIPER、CDD 三层架构、四层架构 ……  MVCMVC - Apple版 Model与VC和View与VC产生联系，但是Model与View不产生联系。 优点: View与 Model不关联，View重用性强">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式与架构 | 印度阿三">
+<meta property="og:url" content="http://PGGMan.github.io/2018/07/19/设计模式与架构/index.html">
+<meta property="og:site_name" content="印度阿三">
+<meta property="og:description" content="架构架构（Architecture） 软件开发中的设计方案 类似于建造楼房的图纸   类与类之间的关系，模块与模块之间的关系，客户端与服务端的关系  常用架构 MVC、MVP、MVVM、VIPER、CDD 三层架构、四层架构 ……  MVCMVC - Apple版 Model与VC和View与VC产生联系，但是Model与View不产生联系。 优点: View与 Model不关联，View重用性强">
+<meta property="og:locale" content="Chinese/English">
+<meta property="og:image" content="http://pggman.github.io/2018/07/19/设计模式与架构/my_MVC.png">
+<meta property="og:image" content="http://pggman.github.io/2018/07/19/设计模式与架构/my_MVP.png">
+<meta property="og:updated_time" content="2018-07-19T12:34:33.728Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式与架构 | 印度阿三">
+<meta name="twitter:description" content="架构架构（Architecture） 软件开发中的设计方案 类似于建造楼房的图纸   类与类之间的关系，模块与模块之间的关系，客户端与服务端的关系  常用架构 MVC、MVP、MVVM、VIPER、CDD 三层架构、四层架构 ……  MVCMVC - Apple版 Model与VC和View与VC产生联系，但是Model与View不产生联系。 优点: View与 Model不关联，View重用性强">
+<meta name="twitter:image" content="http://pggman.github.io/2018/07/19/设计模式与架构/my_MVC.png">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">印度阿三</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          I&#39;m my own hero
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">设计模式与架构</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-07-19" class="post-meta__date date">2018-07-19</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a><font color="#037aff" face="黑体">架构</font></h2><h4 id="架构（Architecture）"><a href="#架构（Architecture）" class="headerlink" title="架构（Architecture）"></a>架构（<code>Architecture</code>）</h4><ul>
+<li>软件开发中的设计方案<ul>
+<li>类似于建造楼房的图纸</li>
+</ul>
+</li>
+<li>类与类之间的关系，模块与模块之间的关系，客户端与服务端的关系</li>
+</ul>
+<h4 id="常用架构"><a href="#常用架构" class="headerlink" title="常用架构"></a>常用架构</h4><ul>
+<li><code>MVC</code>、<code>MVP</code>、<code>MVVM</code>、<code>VIPER</code>、<code>CDD</code></li>
+<li>三层架构、四层架构</li>
+<li>……</li>
+</ul>
+<h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a><font color="#037aff" face="黑体">MVC</font></h2><h4 id="MVC-Apple版"><a href="#MVC-Apple版" class="headerlink" title="MVC - Apple版"></a>MVC - <code>Apple版</code></h4><ul>
+<li><code>Model</code>与<code>VC</code>和<code>View</code>与<code>VC</code>产生联系，但是<code>Model</code>与<code>View</code>不产生联系。<ul>
+<li><code>优点:</code> View与 Model不关联，View重用性强。</li>
+<li><code>缺点</code>: VC代码过于臃肿。 </li>
+</ul>
+</li>
+</ul>
+<p><img src="/2018/07/19/设计模式与架构/my_MVC.png" alt="Apple版MVC"></p>
+<h4 id="MVC-变革版"><a href="#MVC-变革版" class="headerlink" title="MVC - 变革版"></a>MVC - <code>变革版</code></h4><ul>
+<li><code>Model</code>与<code>VC</code>和<code>View</code>与<code>VC</code>产生联系，同时<code>View</code>拥有<code>Model</code>。<ul>
+<li><code>优点:</code> VC代码不至于过于臃肿。</li>
+<li><code>缺点</code>: View与Model绑定了，耦合性强。重用性弱。 </li>
+</ul>
+</li>
+</ul>
+<h2 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a><font color="#037aff" face="黑体">MVP</font></h2><ul>
+<li><p>MVP是由<code>View</code>、<code>Model</code>、<code>Presenter</code>组成。核心桥梁就是<code>Presenter</code>。</p>
+<ul>
+<li><code>Presenter</code>负责把<code>Model</code>数据整合成<code>View</code>数据传递给Model；并负责处理View的事件。 </li>
+</ul>
+</li>
+<li><p><code>优点</code>: 耦合性低、模块职责划分明显、利于分模块测试、View服用率高</p>
+</li>
+<li><code>缺点</code>: 当<code>View</code>业务逻辑发生变更，可能导致预支关联的所有<code>Presenter</code>都发生改变。</li>
+</ul>
+<p><img src="/2018/07/19/设计模式与架构/my_MVP.png" alt="Apple版MVC"></p>
+<h2 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a><font color="#037aff" face="黑体">MVVM</font></h2><ul>
+<li><code>MVVM</code>与<code>MVP</code>很像，它负责Model和View之间的连接，并处理View的业务逻辑</li>
+<li>不同点：<code>View</code>和<code>ViewModel</code>是双向绑定的(互相拥有),并且<code>View</code>会对<code>viewModel</code>进行监听。当ViewModel得值改变，<code>View</code>对应的值也会改变。<ul>
+<li>监听方式:<code>RAC</code>、<code>KVO</code>、<code>KVOController</code>(faecBook开源框架、github可以找到)</li>
+</ul>
+</li>
+</ul>
+<pre><code class="objc">
+- (<span class="keyword">void</span>)setViewModel:(MJAppViewModel *)viewModel
+{
+    _viewModel = viewModel;
+
+    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) waekSelf = <span class="keyword">self</span>;
+    [<span class="keyword">self</span>.KVOController observe:viewModel keyPath:<span class="string">@"name"</span> options:<span class="built_in">NSKeyValueObservingOptionNew</span> block:^(<span class="keyword">id</span>  _Nullable observer, <span class="keyword">id</span>  _Nonnull object, <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; * _Nonnull change) {
+        waekSelf.nameLabel.text = change[<span class="built_in">NSKeyValueChangeNewKey</span>];
+    }];
+
+    [<span class="keyword">self</span>.KVOController observe:viewModel keyPath:<span class="string">@"image"</span> options:<span class="built_in">NSKeyValueObservingOptionNew</span> block:^(<span class="keyword">id</span>  _Nullable observer, <span class="keyword">id</span>  _Nonnull object, <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; * _Nonnull change) {
+        waekSelf.iconView.image = [<span class="built_in">UIImage</span> imageNamed:change[<span class="built_in">NSKeyValueChangeNewKey</span>]];
+    }];
+}
+</code></pre>
+<ul>
+<li><code>优点</code>：方便测试、便于代码的移植、兼容MVC</li>
+<li><code>缺点</code>: 类会增多、新人不太易懂。</li>
+</ul>
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a><font color="#037aff" face="黑体">面试题</font></h2><h4 id="1-讲讲MVC、MVVM、MVP，以及你在项目里的具体是怎么写的？"><a href="#1-讲讲MVC、MVVM、MVP，以及你在项目里的具体是怎么写的？" class="headerlink" title="1 讲讲MVC、MVVM、MVP，以及你在项目里的具体是怎么写的？"></a>1 讲讲MVC、MVVM、MVP，以及你在项目里的具体是怎么写的？</h4><h4 id="2-你自己用过哪些设计模式？"><a href="#2-你自己用过哪些设计模式？" class="headerlink" title="2 你自己用过哪些设计模式？"></a>2 你自己用过哪些设计模式？</h4><h4 id="3-一般开始做一个项目，你得架构是如何思考的？"><a href="#3-一般开始做一个项目，你得架构是如何思考的？" class="headerlink" title="3 一般开始做一个项目，你得架构是如何思考的？"></a>3 一般开始做一个项目，你得架构是如何思考的？</h4>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
