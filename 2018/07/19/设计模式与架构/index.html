@@ -26,7 +26,8 @@
 <meta property="og:locale" content="Chinese/English">
 <meta property="og:image" content="http://pggman.github.io/2018/07/19/设计模式与架构/my_MVC.png">
 <meta property="og:image" content="http://pggman.github.io/2018/07/19/设计模式与架构/my_MVP.png">
-<meta property="og:updated_time" content="2018-07-19T12:34:33.728Z">
+<meta property="og:image" content="http://pggman.github.io/2018/07/19/设计模式与架构/my_delamination.png">
+<meta property="og:updated_time" content="2018-07-21T05:37:11.794Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式与架构 | 印度阿三">
 <meta name="twitter:description" content="架构架构（Architecture） 软件开发中的设计方案 类似于建造楼房的图纸   类与类之间的关系，模块与模块之间的关系，客户端与服务端的关系  常用架构 MVC、MVP、MVVM、VIPER、CDD 三层架构、四层架构 ……  MVCMVC - Apple版 Model与VC和View与VC产生联系，但是Model与View不产生联系。 优点: View与 Model不关联，View重用性强">
@@ -238,7 +239,36 @@ classes that you can use:
 <li><code>优点</code>：方便测试、便于代码的移植、兼容MVC</li>
 <li><code>缺点</code>: 类会增多、新人不太易懂。</li>
 </ul>
-<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a><font color="#037aff" face="黑体">面试题</font></h2><h4 id="1-讲讲MVC、MVVM、MVP，以及你在项目里的具体是怎么写的？"><a href="#1-讲讲MVC、MVVM、MVP，以及你在项目里的具体是怎么写的？" class="headerlink" title="1 讲讲MVC、MVVM、MVP，以及你在项目里的具体是怎么写的？"></a>1 讲讲MVC、MVVM、MVP，以及你在项目里的具体是怎么写的？</h4><h4 id="2-你自己用过哪些设计模式？"><a href="#2-你自己用过哪些设计模式？" class="headerlink" title="2 你自己用过哪些设计模式？"></a>2 你自己用过哪些设计模式？</h4><h4 id="3-一般开始做一个项目，你得架构是如何思考的？"><a href="#3-一般开始做一个项目，你得架构是如何思考的？" class="headerlink" title="3 一般开始做一个项目，你得架构是如何思考的？"></a>3 一般开始做一个项目，你得架构是如何思考的？</h4>
+<h2 id="分层开发"><a href="#分层开发" class="headerlink" title="分层开发"></a><font color="#037aff" face="黑体">分层开发</font></h2><ul>
+<li>分层开发分为：<code>三层架构</code>、<code>四层架构</code></li>
+<li><code>三层架构</code>包含：<code>界面层</code>、<code>业务层</code>、<code>数据层</code>(<code>四层架构</code>会把<code>数据层</code>分为<code>网络层</code>、<code>本地数据层</code>)</li>
+<li>我们平时说的<code>MVC</code>、<code>MVP</code>、<code>MVVM</code>都属于<code>界面层</code>。</li>
+</ul>
+<p><img src="/2018/07/19/设计模式与架构/my_delamination.png" alt="三层架构"></p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a><font color="#037aff" face="黑体">设计模式</font></h2><h4 id="设计模式-Design-Pattern"><a href="#设计模式-Design-Pattern" class="headerlink" title="设计模式(Design Pattern)"></a>设计模式(Design Pattern)</h4><ul>
+<li>是一套呗反复使用、代码设计经验的总结</li>
+<li>使用设计模式的好处是：可重用代码，让代码更容易被人理解，保证代码可靠性。</li>
+<li>一般与编程语言无关，是一套比较成熟的编程思想</li>
+</ul>
+<h4 id="设计模式可以分为三大类"><a href="#设计模式可以分为三大类" class="headerlink" title="设计模式可以分为三大类"></a>设计模式可以分为三大类</h4><ul>
+<li>创建型模式：对象实例化的模式，用于解耦对象的实例化过程。<ul>
+<li><code>单例模式</code>、工厂方法模式，等等</li>
+<li></li>
+</ul>
+</li>
+<li><p>结构性模式：把类或对象结合在一起形成一个更大的结构</p>
+<ul>
+<li>代理模式(不是OC中的传值代理，<code>NSProxy</code>就类似此处的代理模式)、适配器模式、组合模式、装饰模式、等等 </li>
+</ul>
+</li>
+<li><p>行为性模式：类或对象之间如何交互，及划分责任和算法</p>
+<ul>
+<li><code>观察者模式</code>、命令模式、责任链模式、等等</li>
+</ul>
+</li>
+</ul>
+<p><code>待续</code>    </p>
+
   </section>
 
   <section class="post-comments">
