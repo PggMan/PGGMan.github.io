@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://pggman.github.io/2018/07/19/设计模式与架构/my_MVC.png">
 <meta property="og:image" content="http://pggman.github.io/2018/07/19/设计模式与架构/my_MVP.png">
 <meta property="og:image" content="http://pggman.github.io/2018/07/19/设计模式与架构/my_delamination.png">
-<meta property="og:updated_time" content="2018-07-21T05:37:11.794Z">
+<meta property="og:updated_time" content="2018-07-25T11:05:57.142Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式与架构 | 印度阿三">
 <meta name="twitter:description" content="架构架构（Architecture） 软件开发中的设计方案 类似于建造楼房的图纸   类与类之间的关系，模块与模块之间的关系，客户端与服务端的关系  常用架构 MVC、MVP、MVVM、VIPER、CDD 三层架构、四层架构 ……  MVCMVC - Apple版 Model与VC和View与VC产生联系，但是Model与View不产生联系。 优点: View与 Model不关联，View重用性强">
@@ -220,21 +220,7 @@ classes that you can use:
 </ul>
 </li>
 </ul>
-<pre><code class="objc">
-- (<span class="keyword">void</span>)setViewModel:(MJAppViewModel *)viewModel
-{
-    _viewModel = viewModel;
-
-    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) waekSelf = <span class="keyword">self</span>;
-    [<span class="keyword">self</span>.KVOController observe:viewModel keyPath:<span class="string">@"name"</span> options:<span class="built_in">NSKeyValueObservingOptionNew</span> block:^(<span class="keyword">id</span>  _Nullable observer, <span class="keyword">id</span>  _Nonnull object, <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; * _Nonnull change) {
-        waekSelf.nameLabel.text = change[<span class="built_in">NSKeyValueChangeNewKey</span>];
-    }];
-
-    [<span class="keyword">self</span>.KVOController observe:viewModel keyPath:<span class="string">@"image"</span> options:<span class="built_in">NSKeyValueObservingOptionNew</span> block:^(<span class="keyword">id</span>  _Nullable observer, <span class="keyword">id</span>  _Nonnull object, <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; * _Nonnull change) {
-        waekSelf.iconView.image = [<span class="built_in">UIImage</span> imageNamed:change[<span class="built_in">NSKeyValueChangeNewKey</span>]];
-    }];
-}
-</code></pre>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addObserveModelProperty</span><br><span class="line">&#123;</span><br><span class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) waekSelf = <span class="keyword">self</span>;</span><br><span class="line">    [<span class="keyword">self</span>.KVOController observe:viewModel keyPath:<span class="string">@"name"</span> options:<span class="built_in">NSKeyValueObservingOptionNew</span> block:^(<span class="keyword">id</span>  _Nullable observer, <span class="keyword">id</span>  _Nonnull object, <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; * _Nonnull change) &#123;</span><br><span class="line">        waekSelf.nameLabel.text = change[<span class="built_in">NSKeyValueChangeNewKey</span>];</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.KVOController observe:viewModel keyPath:<span class="string">@"image"</span> options:<span class="built_in">NSKeyValueObservingOptionNew</span> block:^(<span class="keyword">id</span>  _Nullable observer, <span class="keyword">id</span>  _Nonnull object, <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; * _Nonnull change) &#123;</span><br><span class="line">        waekSelf.iconView.image = [<span class="built_in">UIImage</span> imageNamed:change[<span class="built_in">NSKeyValueChangeNewKey</span>]];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>优点</code>：方便测试、便于代码的移植、兼容MVC</li>
 <li><code>缺点</code>: 类会增多、新人不太易懂。</li>
