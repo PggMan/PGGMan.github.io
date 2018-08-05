@@ -16,18 +16,18 @@
     
     
 
-    <meta name="description" content="Don&apos;t encourage you, you can&apos;t do it.">
+    <meta name="description" content="Runloop 概念 运行循环，在程序运行过程中循环并处理一些事情  应用场景 定时器(Timer、CADisplayLink) performSelector GCD 事件响应、手势识别、界面刷新 网络请求 AutoreleasePool 线程保活  RunLoop 有无的情况 没有runLoop时。程序启动后就会退出（执行到第7行）  12345678int main(int argc, co">
 <meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RunLoop | 印度阿三">
 <meta property="og:url" content="http://PGGMan.github.io/2018/07/25/RunLoop/index.html">
 <meta property="og:site_name" content="印度阿三">
-<meta property="og:description" content="Don&apos;t encourage you, you can&apos;t do it.">
+<meta property="og:description" content="Runloop 概念 运行循环，在程序运行过程中循环并处理一些事情  应用场景 定时器(Timer、CADisplayLink) performSelector GCD 事件响应、手势识别、界面刷新 网络请求 AutoreleasePool 线程保活  RunLoop 有无的情况 没有runLoop时。程序启动后就会退出（执行到第7行）  12345678int main(int argc, co">
 <meta property="og:locale" content="Chinese/English">
-<meta property="og:updated_time" content="2018-07-25T12:57:39.654Z">
+<meta property="og:updated_time" content="2018-08-05T07:51:42.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RunLoop | 印度阿三">
-<meta name="twitter:description" content="Don&apos;t encourage you, you can&apos;t do it.">
+<meta name="twitter:description" content="Runloop 概念 运行循环，在程序运行过程中循环并处理一些事情  应用场景 定时器(Timer、CADisplayLink) performSelector GCD 事件响应、手势识别、界面刷新 网络请求 AutoreleasePool 线程保活  RunLoop 有无的情况 没有runLoop时。程序启动后就会退出（执行到第7行）  12345678int main(int argc, co">
     
     
     
@@ -171,7 +171,57 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    
+    <h2 id="Runloop"><a href="#Runloop" class="headerlink" title="Runloop "></a><font color="#037aff" face="黑体">Runloop </font></h2><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><ul>
+<li>运行循环，在程序运行过程中循环并处理一些事情</li>
+</ul>
+<h5 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h5><ul>
+<li>定时器(Timer、CADisplayLink) performSelector</li>
+<li>GCD</li>
+<li>事件响应、手势识别、界面刷新</li>
+<li>网络请求</li>
+<li>AutoreleasePool</li>
+<li>线程保活</li>
+</ul>
+<h4 id="RunLoop-有无的情况"><a href="#RunLoop-有无的情况" class="headerlink" title="RunLoop 有无的情况"></a>RunLoop 有无的情况</h4><ul>
+<li>没有runLoop时。程序启动后就会退出（执行到第7行）</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">@autoreleasepool</span>&#123;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>有runLoop时，程序并不会马上退出，而是保持运行状态。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">@autoreleasepool</span>&#123;</span><br><span class="line">	</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate calss]));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="RunLoop-的基本作用"><a href="#RunLoop-的基本作用" class="headerlink" title="RunLoop 的基本作用"></a>RunLoop 的基本作用</h4><ul>
+<li>保持程序的持续运行</li>
+<li>处理App中的各种事件（比如触摸事件、定时器事件等）</li>
+<li>节省CPU资源，提高程序性能。改做事时做事，该休息时休息</li>
+<li>……</li>
+</ul>
+<h4 id="RunLoop-对象"><a href="#RunLoop-对象" class="headerlink" title="RunLoop 对象"></a>RunLoop 对象</h4><ul>
+<li><p>iOS中有2套API来访问和使用RunLoop</p>
+<ul>
+<li>Foundation：<code>NSRunLoop</code></li>
+<li>Core Foundation：<code>CFRunLoopRef</code></li>
+</ul>
+</li>
+<li><p><code>NSRunLoop</code>和<code>CFRunLoopRef</code>都代表着RunLoop对象</p>
+<ul>
+<li><code>NSRunLoop</code>是基于<code>CFRunLoopRef</code>的一层OC包装 </li>
+<li>CFRunLoop是开源的(注: <a href="https://opensource.apple.com/tarballs/CF/" target="_blank" rel="noopener">开源框架</a>)</li>
+</ul>
+</li>
+</ul>
+<h4 id="RunLoop与线程"><a href="#RunLoop与线程" class="headerlink" title="RunLoop与线程"></a>RunLoop与线程</h4><ul>
+<li>每条线程都有唯一的一个预支对应的RunLoop对象</li>
+<li>RunLoop保存在一个全局的Dictionary里，线程作为key，RunLoop作为value</li>
+<li>线程创建时并没有RunLoop对象，RunLoop会在第一次获取它时创建.(<code>懒加载</code>)*</li>
+<li>Runloop会在线程结束时销毁</li>
+<li>主线程的RunLoop已经自动获取(创建)，子线程默认没有开启RunLoop。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Core Fundation 源码： CFRunLoopGetCurrent()</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">CFRunLoopRef</span> _CFRunLoopGet0b(pthread_t t) &#123;</span><br><span class="line">    <span class="keyword">if</span> (pthread_equal(t, kNilPthreadT)) &#123;</span><br><span class="line">	t = pthread_main_thread_np();</span><br><span class="line">    &#125;</span><br><span class="line">    __CFLock(&amp;loopsLock);</span><br><span class="line">    <span class="built_in">CFRunLoopRef</span> loop = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">// 注意看这里</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     发现__CFRunLoops不存在时：</span></span><br><span class="line"><span class="comment">     就会把传进来先线程p作为key，把创建的RunLoop作为value 存到一个RunLoop管理字典中</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">if</span> (__CFRunLoops) &#123;</span><br><span class="line">    	 </span><br><span class="line">        loop = (<span class="built_in">CFRunLoopRef</span>)<span class="built_in">CFDictionaryGetValue</span>(__CFRunLoops, pthreadPointer(t));</span><br><span class="line">    &#125;</span><br><span class="line">    __CFUnlock(&amp;loopsLock);</span><br><span class="line">    <span class="keyword">return</span> loop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="获取RunLoop对象"><a href="#获取RunLoop对象" class="headerlink" title="获取RunLoop对象"></a>获取RunLoop对象</h4><ul>
+<li>Foundation</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">NSRunLoop</span> currentRunLoop]; <span class="comment">// 获得当前线程的RunLoop对象</span></span><br><span class="line">[<span class="built_in">NSRunLoop</span> mainRunLoop]; <span class="comment">// 获取主线程的RunLoop对象</span></span><br></pre></td></tr></table></figure>
   </section>
 
   <section class="post-comments">
