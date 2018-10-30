@@ -25,7 +25,7 @@
 <meta property="og:description" content="网络架构  1.1 每个iOS应用都位于某个网络框架栈之上。共4层构成 * 最上层是Cocoa层：包含了用于URL加载的OC API,Web Kit，Bonjour与Game Kit. * 第二层是Core Foundation层，这是一套C API,其中包含了CFNetwork,这是大多数应用级别的网络代码的基础，CFNetwork在CFStream与CFSocket之上提供了一个简单的网络接口">
 <meta property="og:locale" content="Chinese/English">
 <meta property="og:image" content="http://pggman.github.io/2018/09/17/NetWork/network_01.png">
-<meta property="og:updated_time" content="2018-09-30T02:55:32.770Z">
+<meta property="og:updated_time" content="2018-10-30T08:50:22.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NetWork | 印度阿三">
 <meta name="twitter:description" content="网络架构  1.1 每个iOS应用都位于某个网络框架栈之上。共4层构成 * 最上层是Cocoa层：包含了用于URL加载的OC API,Web Kit，Bonjour与Game Kit. * 第二层是Core Foundation层，这是一套C API,其中包含了CFNetwork,这是大多数应用级别的网络代码的基础，CFNetwork在CFStream与CFSocket之上提供了一个简单的网络接口">
@@ -180,7 +180,42 @@ classes that you can use:
 </code></pre><p><code>Apple建议</code>    </p>
 <pre><code>1. 建议开发者使用CFNetwork层及其之上的；
 2. BSD层的原始socket无法访问系统范围的VPN，也无法激活Wi-Fi和蜂窝无线电，而这些CFNetwork已经帮我们处理好了
-</code></pre>
+</code></pre><h2 id="加解密"><a href="#加解密" class="headerlink" title="加解密"></a>加解密</h2><h3 id="客户端加密"><a href="#客户端加密" class="headerlink" title="客户端加密"></a>客户端加密</h3><ul>
+<li>1 获取时间戳</li>
+</ul>
+<ul>
+<li>2 生成 <code>AES-key</code>并 取出 <code>RSA的公钥</code>对其进行加密</li>
+</ul>
+<ul>
+<li><p>3 生成字典</p>
+<ul>
+<li>3.1 生成 <code>h</code>字典<ul>
+<li>3.2 生成<code>x</code>字典</li>
+<li>3.3 生成<code>b</code>字典</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>4 用<code>x</code>字典(设备信息)和<code>b</code>字典(接口参数)进行AES加密</li>
+</ul>
+<ul>
+<li>5 将<code>时间戳</code>和<code>AES-key</code>生成字符串进行md5(防止服务器轰炸)</li>
+</ul>
+<ul>
+<li>6 最后一步生成新字典传给服务端</li>
+</ul>
+<h3 id="客户端解密"><a href="#客户端解密" class="headerlink" title="客户端解密"></a>客户端解密</h3><ul>
+<li><p>1 拿到服务端数解析出字典</p>
+</li>
+<li><p>2 取出本地RSA公钥并对服务端<code>RSA私钥加密过得AES-key</code>进行解密</p>
+</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h4><p>1 RSA私钥在服务端，公钥会以证书形式分发给客户端。<br>2 客户端生成AES-key,并对参数和设备信息混合字典进行加密<br>3 RSA公钥 对 AES-key进行加密。<br>4 对时间戳和AES-key混合字符串进行MD5(防服务端轰炸)<br>5 组成新字典传递给服务端。</p>
+<p>6 服务端用新生成的AES-key对信息进行加密。<br>7 用RSA私钥对AES-KEY进行签名。并把信息返给客户端。</p>
+<p>8 客户端用RSA公钥解签出AES-key。<br>9 用AES-key解析出数据。</p>
+
   </section>
 
   <section class="post-comments">
