@@ -25,7 +25,10 @@
 <meta property="og:description" content="网络架构  1.1 每个iOS应用都位于某个网络框架栈之上。共4层构成 * 最上层是Cocoa层：包含了用于URL加载的OC API,Web Kit，Bonjour与Game Kit. * 第二层是Core Foundation层，这是一套C API,其中包含了CFNetwork,这是大多数应用级别的网络代码的基础，CFNetwork在CFStream与CFSocket之上提供了一个简单的网络接口">
 <meta property="og:locale" content="Chinese/English">
 <meta property="og:image" content="http://pggman.github.io/2018/09/17/NetWork/network_01.png">
-<meta property="og:updated_time" content="2018-10-30T08:50:22.032Z">
+<meta property="og:image" content="http://pggman.github.io/2018/09/17/NetWork/network_digitalSignature.png">
+<meta property="og:image" content="http://pggman.github.io/2018/09/17/NetWork/network_center.png">
+<meta property="og:image" content="http://pggman.github.io/2018/09/17/NetWork/network_CA.png">
+<meta property="og:updated_time" content="2018-11-02T08:31:06.572Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NetWork | 印度阿三">
 <meta name="twitter:description" content="网络架构  1.1 每个iOS应用都位于某个网络框架栈之上。共4层构成 * 最上层是Cocoa层：包含了用于URL加载的OC API,Web Kit，Bonjour与Game Kit. * 第二层是Core Foundation层，这是一套C API,其中包含了CFNetwork,这是大多数应用级别的网络代码的基础，CFNetwork在CFStream与CFSocket之上提供了一个简单的网络接口">
@@ -180,42 +183,140 @@ classes that you can use:
 </code></pre><p><code>Apple建议</code>    </p>
 <pre><code>1. 建议开发者使用CFNetwork层及其之上的；
 2. BSD层的原始socket无法访问系统范围的VPN，也无法激活Wi-Fi和蜂窝无线电，而这些CFNetwork已经帮我们处理好了
-</code></pre><h2 id="加解密"><a href="#加解密" class="headerlink" title="加解密"></a>加解密</h2><h3 id="客户端加密"><a href="#客户端加密" class="headerlink" title="客户端加密"></a>客户端加密</h3><ul>
+</code></pre><h2 id="AFNNetworking"><a href="#AFNNetworking" class="headerlink" title="AFNNetworking "></a><font color="#037aff" face="黑体">AFNNetworking </font></h2><h4 id="AFN函数"><a href="#AFN函数" class="headerlink" title="AFN函数"></a>AFN函数</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="built_in">NSURLSessionDataTask</span> *)dataTaskWithHTTPMethod:(<span class="built_in">NSString</span> *)method</span><br><span class="line">                                       URLString:(<span class="built_in">NSString</span> *)URLString</span><br><span class="line">                                      parameters:(<span class="keyword">id</span>)parameters</span><br><span class="line">                                  uploadProgress:(<span class="keyword">nullable</span> <span class="keyword">void</span> (^)(<span class="built_in">NSProgress</span> *uploadProgress)) uploadProgress</span><br><span class="line">                                downloadProgress:(<span class="keyword">nullable</span> <span class="keyword">void</span> (^)(<span class="built_in">NSProgress</span> *downloadProgress)) downloadProgress</span><br><span class="line">                                         success:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLSessionDataTask</span> *, <span class="keyword">id</span>))success</span><br><span class="line">                                         failure:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLSessionDataTask</span> *, <span class="built_in">NSError</span> *))failure</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSError</span> *serializationError = <span class="literal">nil</span>;</span><br><span class="line">    <span class="built_in">NSMutableURLRequest</span> *request = [<span class="keyword">self</span>.requestSerializer requestWithMethod:method URLString:[[<span class="built_in">NSURL</span> URLWithString:URLString relativeToURL:<span class="keyword">self</span>.baseURL] absoluteString] parameters:parameters error:&amp;serializationError];</span><br><span class="line">    <span class="keyword">if</span> (serializationError) &#123;</span><br><span class="line">        <span class="keyword">if</span> (failure) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(<span class="keyword">self</span>.completionQueue ?: dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                failure(<span class="literal">nil</span>, serializationError);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    __block <span class="built_in">NSURLSessionDataTask</span> *dataTask = <span class="literal">nil</span>;</span><br><span class="line">    dataTask = [<span class="keyword">self</span> dataTaskWithRequest:request</span><br><span class="line">                          uploadProgress:uploadProgress</span><br><span class="line">                        downloadProgress:downloadProgress</span><br><span class="line">                       completionHandler:^(<span class="built_in">NSURLResponse</span> * __unused response, <span class="keyword">id</span> responseObject, <span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">            <span class="keyword">if</span> (failure) &#123;</span><br><span class="line">                failure(dataTask, error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (success) &#123;</span><br><span class="line">                success(dataTask, responseObject);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dataTask;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="机密"><a href="#机密" class="headerlink" title="机密"></a>机密</h2><h3 id="客户端加密"><a href="#客户端加密" class="headerlink" title="客户端加密"></a>客户端加密</h3><ul>
 <li>1 获取时间戳</li>
 </ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取时间戳</span></span><br><span class="line"><span class="built_in">NSTimeInterval</span> timeInterval = [[<span class="built_in">NSDate</span> date] timeIntervalSince1970]*<span class="number">1000</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *rString = [<span class="built_in">NSString</span> getNotNullString:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%.f"</span>,timeInterval]];</span><br></pre></td></tr></table></figure>
 <ul>
 <li>2 生成 <code>AES-key</code>并 取出 <code>RSA的公钥</code>对其进行加密</li>
 </ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1 生成AES-key</span></span><br><span class="line"><span class="built_in">NSString</span> *encryptionKeyString = [<span class="built_in">NSData</span> AESRandomKey];</span><br><span class="line">              </span><br><span class="line"><span class="comment">// 2 取出RSA公钥(从证书中)</span></span><br><span class="line">CRSA *rsa = [CRSA shareInstance];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3 用RSA公钥对AES-key进行加密 </span></span><br><span class="line">encryptionString = [rsa encryptByRsaKeyFromFile:encryptionKeyString withKeyType:CRSAKeyTypePublic];</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>3 生成字典</p>
+</li>
+<li><p>3.1 生成 <code>h</code>字典</p>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//h  加密相关</span></span><br><span class="line">  <span class="built_in">NSDictionary</span> *h_Dic = @&#123;</span><br><span class="line">                           <span class="string">@"encrypted"</span>:encryptedString, <span class="comment">// 是否加密</span></span><br><span class="line">                           <span class="string">@"ticket"</span>:ticket,  <span class="comment">//单点登录的标识</span></span><br><span class="line">                           <span class="string">@"encryption"</span>:encryptionString <span class="comment">// RSA加密后的AES-key                                &#125;;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>3.1 生成 <code>h</code>字典<ul>
 <li>3.2 生成<code>x</code>字典</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//x=?  渠道 app名 设备信息 </span></span><br><span class="line">       <span class="built_in">NSDictionary</span> *x_Dic = @&#123;</span><br><span class="line">                               <span class="string">@"uid"</span>    :uidString,        <span class="comment">//1</span></span><br><span class="line">                               <span class="string">@"site"</span>   :siteString,       <span class="comment">//2</span></span><br><span class="line">                               <span class="string">@"app"</span>    :appString,        <span class="comment">//3</span></span><br><span class="line">                               <span class="string">@"os"</span>     :osString,         <span class="comment">//4</span></span><br><span class="line">                               <span class="string">@"model"</span>  :modelString,      <span class="comment">//5</span></span><br><span class="line">                               <span class="string">@"width"</span>  :widthString,      <span class="comment">//6</span></span><br><span class="line">                               <span class="string">@"imei"</span>   :imeiString,       <span class="comment">//7</span></span><br><span class="line">                               <span class="string">@"sid"</span>    :sidString,        <span class="comment">//8</span></span><br><span class="line">                               <span class="string">@"cid"</span>    :cidString,        <span class="comment">//9</span></span><br><span class="line">                               <span class="string">@"net"</span>    :netString,        <span class="comment">//10</span></span><br><span class="line">                               <span class="string">@"ip"</span>     :ipString,         <span class="comment">//11</span></span><br><span class="line">                               <span class="string">@"os_v"</span>   :os_vString,       <span class="comment">//12</span></span><br><span class="line">                               <span class="string">@"height"</span> :heightString,     <span class="comment">//13</span></span><br><span class="line">                               <span class="string">@"os_id"</span>  :os_idString,      <span class="comment">//14</span></span><br><span class="line">                               <span class="string">@"brand"</span>  :brandString,      <span class="comment">//15</span></span><br><span class="line">                               <span class="string">@"imsi"</span>   :imsiString,       <span class="comment">//16</span></span><br><span class="line">                               <span class="string">@"channel"</span>:channelString,     <span class="comment">//17</span></span><br><span class="line">                               <span class="string">@"idfa"</span>   :idva,</span><br><span class="line">                               <span class="string">@"true_idfa"</span>:true_idfa,</span><br><span class="line">                               <span class="string">@"mac"</span>    :mac</span><br><span class="line">                               &#125;;</span><br></pre></td></tr></table></figure>
+<ul>
 <li>3.3 生成<code>b</code>字典</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//b=?  //接口参数</span></span><br><span class="line">        <span class="built_in">NSDictionary</span> *b_Dic = <span class="keyword">self</span>;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>4 用<code>x</code>字典(设备信息)和<code>b</code>字典(接口参数)进行AES加密</li>
 </ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//进行加密操作  保证数据安全</span></span><br><span class="line">        <span class="built_in">NSDictionary</span> *d_Dic = @&#123;<span class="string">@"x"</span>:x_Dic,</span><br><span class="line">                                <span class="string">@"b"</span>:b_Dic</span><br><span class="line">                                &#125;;</span><br><span class="line">        <span class="built_in">NSString</span> *d_JSONEncryptionString = [d_Dic AESEncryptionWithKey:encryptionKeyString];</span><br></pre></td></tr></table></figure>
 <ul>
 <li>5 将<code>时间戳</code>和<code>AES-key</code>生成字符串进行md5(防止服务器轰炸)</li>
 </ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *temp_sString = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@%@"</span>,rString,d_JSONEncryptionString];</span><br><span class="line">     </span><br><span class="line">          </span><br><span class="line">    <span class="built_in">NSString</span> *sString = [temp_sString md5LowercaseString];</span><br></pre></td></tr></table></figure>
 <ul>
 <li>6 最后一步生成新字典传给服务端</li>
 </ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[paramsDic setDictionary:</span><br><span class="line">        @&#123;</span><br><span class="line">          <span class="string">@"r"</span>:rString,  <span class="comment">// 时间戳</span></span><br><span class="line">          <span class="string">@"h"</span>:h_Dic,    <span class="comment">// 加密相关字典</span></span><br><span class="line">          <span class="string">@"d"</span>:d_JSONEncryptionString, <span class="comment">// AES加密后的信息字典</span></span><br><span class="line">          <span class="string">@"s"</span>:sString   <span class="comment">// md5后的防轰炸字符串(时间、AES-key)</span></span><br><span class="line">          &#125;];</span><br></pre></td></tr></table></figure>
 <h3 id="客户端解密"><a href="#客户端解密" class="headerlink" title="客户端解密"></a>客户端解密</h3><ul>
-<li><p>1 拿到服务端数解析出字典</p>
-</li>
-<li><p>2 取出本地RSA公钥并对服务端<code>RSA私钥加密过得AES-key</code>进行解密</p>
-</li>
+<li>1 拿到服务端数解析出字典</li>
 </ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="keyword">self</span>)<span class="keyword">return</span> @&#123;&#125;;</span><br><span class="line">	<span class="comment">// 1 转码</span></span><br><span class="line">    <span class="built_in">NSData</span> *jsonData = [<span class="keyword">self</span> dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSError</span> *err;</span><br><span class="line">    <span class="comment">// 2 序列化出字典</span></span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:jsonData</span><br><span class="line">                                                        options:<span class="built_in">NSJSONReadingMutableContainers</span></span><br><span class="line">                                                          error:&amp;err];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>2 取出本地RSA公钥并对服务端<code>RSA私钥加密过得AES-key</code>进行解密</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1取出 加密后的AES-key</span></span><br><span class="line"><span class="built_in">NSString</span> *keyString = dic[<span class="string">@"encryption"</span>];</span><br><span class="line"><span class="comment">// 2 取出RSA公钥</span></span><br><span class="line">CRSA *rsa = [CRSA shareInstance];</span><br><span class="line"><span class="comment">// 3 进行解密 得到AES-key</span></span><br><span class="line"> keyString = [rsa decryptByRsaKeyFromFile:keyString withKeyType:CRSAKeyTypePublic];</span><br><span class="line"><span class="comment">// 4 服务端对数据进行了一次base64 这里可以忽略</span></span><br><span class="line"><span class="comment">// 5 用AES-key解密出信息(需要编码 序列化 出数据)</span></span><br><span class="line"><span class="built_in">NSData</span> *resultData = [tempData AES128DecryptWithKey:keyString]; </span><br><span class="line"><span class="built_in">NSData</span> *jsonData2 = [tempStr dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">       <span class="built_in">NSError</span> *err2;</span><br><span class="line">       data_Obj = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:jsonData2</span><br><span class="line">                                               options:<span class="built_in">NSJSONReadingMutableContainers</span></span><br><span class="line">                                                 error:&amp;err2];</span><br><span class="line">       [resultDic setObject:data_Obj forKey:<span class="string">@"data"</span>];</span><br></pre></td></tr></table></figure>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h4><p>1 RSA私钥在服务端，公钥会以证书形式分发给客户端。<br>2 客户端生成AES-key,并对参数和设备信息混合字典进行加密<br>3 RSA公钥 对 AES-key进行加密。<br>4 对时间戳和AES-key混合字符串进行MD5(防服务端轰炸)<br>5 组成新字典传递给服务端。</p>
 <p>6 服务端用新生成的AES-key对信息进行加密。<br>7 用RSA私钥对AES-KEY进行签名。并把信息返给客户端。</p>
 <p>8 客户端用RSA公钥解签出AES-key。<br>9 用AES-key解析出数据。</p>
-
+<h4 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h4><ul>
+<li>1 为什么私钥需要保存在服务端，公钥可以分发给客户端？<ul>
+<li>答: RSA公私钥是由4个因素决定的，私钥中包含了这4个因素的信息，很容易推导出公钥；而公钥中只包含2个，很难推导出私钥。所以为了安全需要把私钥放在服务端。</li>
+</ul>
+</li>
+</ul>
+<h3 id="单向散列函数-摘要函数-哈希函数"><a href="#单向散列函数-摘要函数-哈希函数" class="headerlink" title="单向散列函数(摘要函数\哈希函数)"></a>单向散列函数(摘要函数\哈希函数)</h3><ul>
+<li>单向散列函数，可以根据消息内容计算出散列值</li>
+<li>特点:<ul>
+<li>根据任意长度的消息，计算出固定长度的散列值。散列值的长度和消息的长度无关；</li>
+<li>计算速度快，能快速计算出散列值。</li>
+<li>消息不同，散列值也不同。</li>
+<li>单向散列函数也具备单向性。</li>
+</ul>
+</li>
+</ul>
+<h4 id="常见的几种单向散列函数"><a href="#常见的几种单向散列函数" class="headerlink" title="常见的几种单向散列函数"></a>常见的几种单向散列函数</h4><ul>
+<li>MD4、MD5<ul>
+<li>产生128bit的散列值 ，已不在安全</li>
+</ul>
+</li>
+<li>SHA-1<ul>
+<li>产生160bit的散列值 ，已不在安全</li>
+</ul>
+</li>
+<li>SHA-2<ul>
+<li>SHA-256、SHA-384、SHA-512，散列值长度分别是256bit、384bit、512bit。</li>
+</ul>
+</li>
+<li>SHA-3<ul>
+<li>全新标准（正在研发） </li>
+</ul>
+</li>
+</ul>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><ul>
+<li><p>过程: </p>
+<ul>
+<li>1 发送者(可以理解为服务端)对要发送的消息进行散列函数计算得出散列值。</li>
+<li>2 发送者通过私钥(RSA-私钥)对消息的散列值进行加密(当消息内容太多，私钥加密会很耗时)。</li>
+<li><p>3 发送者将消息原文以及私钥加密的消息散列值密文发送给接收者(可以理解为客户端) 。</p>
+</li>
+<li><p>4 接收者用公钥对私钥加密的消息散列值密文进行解密得到消息散列值</p>
+</li>
+<li>5 接收者对消息明文进行散列值计算得出新散列值</li>
+<li>6 接收者对两个散列值进行比较得出结果(相等则通过；否则，不通过)。 </li>
+</ul>
+</li>
+<li>作用:<ul>
+<li>1 确认消息的完善性</li>
+<li>2 识别消息是否被篡改</li>
+<li>3 防止消息发送人否认</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2018/09/17/NetWork/network_digitalSignature.png" alt="网络框架站">    </p>
+<h3 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h3><h4 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h4><p><img src="/2018/09/17/NetWork/network_center.png" alt="网络框架站"></p>
+<ul>
+<li><p>概念: iT中的证书一般为<code>公钥证书</code></p>
+<ul>
+<li>1 证书中包含有<code>姓名</code>、<code>邮箱</code>等个人信息，以及此人的公钥</li>
+<li>2 证书是由权威认证机构(CA)施加了数字签名(私钥加密) </li>
+</ul>
+</li>
+<li><p>作用: 防止中间人攻击</p>
+<ul>
+<li>1 在服务端将公钥发送给客户端时，中间人进行拦截得到公钥，并将自己得公钥发送给客户端。    </li>
+<li>2 这时中间了就可以自由接收发送消息给服务端以及客户端。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2018/09/17/NetWork/network_CA.png" alt="网络框架站"></p>
+<h4 id="CA-是能够认定“公钥是实属于此人“并能够生成数字签名的个人或者组织。"><a href="#CA-是能够认定“公钥是实属于此人“并能够生成数字签名的个人或者组织。" class="headerlink" title="CA: 是能够认定“公钥是实属于此人“并能够生成数字签名的个人或者组织。"></a>CA: 是能够认定“公钥是实属于此人“并能够生成数字签名的个人或者组织。</h4><h3 id="总结-加解密算法"><a href="#总结-加解密算法" class="headerlink" title="总结(加解密算法)"></a>总结(加解密算法)</h3><pre><code>- 1 对称加密(AES)(对称加密)
+    - 加解密用同一个密钥
+    - 加解密速度快
+    - 无法解决密钥配送问题
+- 2 公约密码(RSA)(非对称加密)  
+    - 加解密用不同的密钥（公私钥）
+    - 加密速度慢
+    - 解决密钥配送问题 
+- 3 单向散列函数
+    - 根据消息生成对应的固定长度的散列值
+    - 防止数据被篡改 
+- 4 数据签名
+    - 用私钥加密消息的散列值，生成密文
+- 5 证书
+    - 用CA的私钥，对其他人的公钥生成的数字签名进行加密   
+</code></pre>
   </section>
 
   <section class="post-comments">
