@@ -16,18 +16,18 @@
     
     
 
-    <meta name="description" content="Don&apos;t encourage you, you can&apos;t do it.">
+    <meta name="description" content="操作1 同一网络环境下(wifi)登录手机 1234567// 10.1.1.193 为手机的iP地址// 最高权限登录手机ssh root@10.1.1.193// 方可权限ssh mobile@10.1.1.193 2 退出登录 123root# exitmobile$ exit 3 服务器身份信息变更 12345678//1 删掉已保存的与iP绑定的公钥vim known_hosts//2">
 <meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆向环境搭建 | 印度阿三">
 <meta property="og:url" content="http://PGGMan.github.io/2018/07/15/逆向环境搭建/index.html">
 <meta property="og:site_name" content="印度阿三">
-<meta property="og:description" content="Don&apos;t encourage you, you can&apos;t do it.">
+<meta property="og:description" content="操作1 同一网络环境下(wifi)登录手机 1234567// 10.1.1.193 为手机的iP地址// 最高权限登录手机ssh root@10.1.1.193// 方可权限ssh mobile@10.1.1.193 2 退出登录 123root# exitmobile$ exit 3 服务器身份信息变更 12345678//1 删掉已保存的与iP绑定的公钥vim known_hosts//2">
 <meta property="og:locale" content="Chinese/English">
-<meta property="og:updated_time" content="2018-07-15T12:01:02.263Z">
+<meta property="og:updated_time" content="2018-11-14T07:50:09.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向环境搭建 | 印度阿三">
-<meta name="twitter:description" content="Don&apos;t encourage you, you can&apos;t do it.">
+<meta name="twitter:description" content="操作1 同一网络环境下(wifi)登录手机 1234567// 10.1.1.193 为手机的iP地址// 最高权限登录手机ssh root@10.1.1.193// 方可权限ssh mobile@10.1.1.193 2 退出登录 123root# exitmobile$ exit 3 服务器身份信息变更 12345678//1 删掉已保存的与iP绑定的公钥vim known_hosts//2">
     
     
     
@@ -171,7 +171,31 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    
+    <h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p>1 同一网络环境下(wifi)登录手机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 10.1.1.193 为手机的iP地址</span><br><span class="line"></span><br><span class="line">// 最高权限登录手机</span><br><span class="line">ssh root@10.1.1.193</span><br><span class="line"></span><br><span class="line">// 方可权限</span><br><span class="line">ssh mobile@10.1.1.193</span><br></pre></td></tr></table></figure>
+<p>2 退出登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root# exit</span><br><span class="line"></span><br><span class="line">mobile$ exit</span><br></pre></td></tr></table></figure>
+<p>3 服务器身份信息变更</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//1 删掉已保存的与iP绑定的公钥</span><br><span class="line">vim known_hosts</span><br><span class="line"></span><br><span class="line">//2 移动到要删除的公钥位置进行删除</span><br><span class="line">dd</span><br><span class="line"></span><br><span class="line">//3 通过ip删除</span><br><span class="line">ssh-keygen -R 10.1.1.193</span><br></pre></td></tr></table></figure>
+<p>4 跨设备拷贝</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 通过scp指令 将~/.ssh/路径下的id_rsa.pub 拷贝到iP为10.1.1.193的设备的~/.ssh路径下</span><br><span class="line">scp ~/.ssh/id_rsa.pub root@10.1.1.193:~/.ssh</span><br></pre></td></tr></table></figure>
+<p>5 追加内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 通过cat指令 将 id_rsa.pub的内容 追加到authorized_keys的尾部</span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br></pre></td></tr></table></figure>
+<p>6 端口映射</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 通过python指令执行pyTool.py脚本 将22端口映射到10010端口 (-t 为支持多台设备)</span><br><span class="line">python pyTool.py -t 22:10010</span><br></pre></td></tr></table></figure>
+<p>7 端口映射后通过USB登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 1 保存端口映射的终端窗口</span><br><span class="line">// 2 通过ssh指令 登录本地(localhost)的 10010端口(即登录到了远程服务器的22端口)</span><br><span class="line">ssh root@localhost -p 10010</span><br></pre></td></tr></table></figure>
+<p>8 端口映射后的跨设备拷贝</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//用scp指令 将id_rsa.pub文件 通过本地(localhost)的10010（22端口映射后的10010端口）拷贝到远程的~/.ssh目录下</span><br><span class="line">scp -P 10010 ~/.ssh/id_rsa.pub root@localhost: ~/.ssh</span><br></pre></td></tr></table></figure>
+<h3 id="生成shell脚本"><a href="#生成shell脚本" class="headerlink" title="生成shell脚本"></a>生成shell脚本</h3><ul>
+<li>可以将经常执行的命令写到脚本中直接执行脚本就可以了</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//1 创建usb.sh脚本文件</span><br><span class="line">vim usb.sh</span><br><span class="line"></span><br><span class="line">//2 进入到文件编辑状态</span><br><span class="line">i</span><br><span class="line"></span><br><span class="line">// 3 将内容拷贝进去</span><br><span class="line"></span><br><span class="line">// 4 保存退出</span><br><span class="line">esc  </span><br><span class="line">:</span><br><span class="line">wq</span><br></pre></td></tr></table></figure>
+<ul>
+<li>脚本执行</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 执行脚本文件(子进程执行脚本文件后，回到父进程的环境(路径不变))</span><br><span class="line">sh usb.sh</span><br><span class="line">// 执行脚本文件(子进程执行脚本文件后，回到父进程的环境(路径不变)) </span><br><span class="line">bash usb.sh</span><br><span class="line"></span><br><span class="line">// 执行脚本文件(当前环境下执行(若里面有改变路径 当前路径汇编))</span><br><span class="line">source usb.sh</span><br></pre></td></tr></table></figure>
+
   </section>
 
   <section class="post-comments">
